@@ -1,0 +1,13 @@
+add_library(lex "")
+
+target_sources(lex
+  PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/lex.cpp
+  PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/lex.h
+  )
+
+target_include_directories(lex
+  PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}
+  )
