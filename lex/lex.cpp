@@ -99,10 +99,10 @@ void advance()
 void printToken()
 {
     // 打印当前解析的token
-    char test_buf[120];
-    memcpy((void *)test_buf, (void *)yytext, yyleng);
-    test_buf[yyleng] = '\0';
-    fprintf(stdout, "%s\n", test_buf);
+    // char test_buf[120];
+    // memcpy((void *)test_buf, (void *)yytext, yyleng);
+    // test_buf[yyleng] = '\0';
+    // fprintf(stdout, "%s\n", test_buf);
 }
 
 int legal_lookahead(int first_arg, ...)
