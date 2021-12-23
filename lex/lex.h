@@ -7,6 +7,9 @@
 #define RP      5       // )
 #define NUM_OR_ID 6     // decimal number or identifier
 
+#define MAXFIRST 16
+#define SYNCH SEMI
+
 extern char* yytext;    // in lex.c
 extern int   yyleng;
 extern int   yylineno;
@@ -16,3 +19,4 @@ int match(int token);
 void advance();
 
 void printToken();
+int legal_lookahead(int first_arg, ...);

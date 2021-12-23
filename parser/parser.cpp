@@ -7,59 +7,49 @@ void statements()
     /* statements -> expression SEMI
     *              | expression SEMI statements
     */
-    expression();
-    if (match(SEMI))
-    {
-        advance();
-    }
-    else
-    {
-        fprintf(stdout, "%d: Inserting missing semicolon\n", yylineno);
-    }
-    if (!match(EOI))
-    {
-        statements();
-    }
+   while(!match(EOI))
+   {
+       expression();
+
+       if (match(SEMI))
+       {
+           advance();
+       }
+       else
+       {
+           fprintf(stdout, "%d: Inserting missing semicolon\n", yylineno);
+       }
+   }
 }
 
 void expression()
 {
     /* expression -> term expression' */
+    if(!legal_lookahead(NUM_OR_ID, LP, 0))
+    {
+        return;
+    }
     term();
-    expr_prime();
-}
-
-void expr_prime()
-{
-    /* expressin' -> PLUS term expression'
-    *              | epsilon
-    */
-   if (match(PLUS))
-   {
-       advance();
-       term();
-       expr_prime();
-   }
+    while(match(PLUS))
+    {
+        advance();
+        term();
+    }
 }
 
 void term()
 {
     /* term -> factor term' */
+    if (!legal_lookahead(NUM_OR_ID, LP, 0))
+    {
+        return;
+    }
     factor();
-    term_prime();
-}
-
-void term_prime()
-{
-    /* term' -> TIMES factor term'
-    *         |  epsilon
-    */
-   if(match(TIMES))
-   {
-       advance();
-       factor();
-       term_prime();
-   }
+    while(match(TIMES))
+    {
+        advance();
+        factor();
+    }
 }
 
 void factor()
@@ -67,6 +57,10 @@ void factor()
     /* factor -> NUM_OR_ID
     *          | LP expression RP
     */
+   if(!legal_lookahead(NUM_OR_ID, LP, 0))
+   {
+       return;
+   }
    if(match(NUM_OR_ID))
    {
        advance();
